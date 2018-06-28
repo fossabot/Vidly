@@ -1,0 +1,15 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+
+before_build:
+ - appveyor-retry dotnet restore -v Minimal
+ 
+build:
+  verbosity: minimal
+  
+# If your build needs more advanced behavior, see detailed Appveyor instructions:
+# https://www.appveyor.com/docs/build-configuration/
+  
+on_success:
+- curl -s -o copilot https://copilot.blackducksoftware.com/ci/appveyor/scripts/upload
+- bash copilot
